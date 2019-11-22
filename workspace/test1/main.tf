@@ -1,6 +1,7 @@
 module "module-vpc"{
-    source = "../../modules/vpc"
+    source = "github.com/jdasilvaferreira/terraform-dev/modules/vpc"
     cidr_block = "${var.cidr_block}"
+    vpc_region = "eu-west-1"
 }
 
 variable "cidr_block" {
