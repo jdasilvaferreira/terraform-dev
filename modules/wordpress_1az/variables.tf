@@ -15,5 +15,15 @@ variable "aws_amis" {
   }
 }
 
-variable "vpc_id" {}
+variable "vpc_id" {
+  default = "vpc-09aed5440ad6f2399"
+}
+
+variable "vpc_cidr_block" {
+  default = "10.11.0.0/16"
+}
+
+variable "subnet" {
+  default = "subnet-037d86218d0191943"
+}
 

@@ -3,14 +3,6 @@ provider "aws" {
   region = "${var.aws_region}"
 }
 
-# Sous réseau créé pour y mettre les nodes backend
-resource "aws_subnet" "default" {
-  vpc_id                  = "${var.vpc_id}"
-  cidr_block              = "10.0.2.0/24"
-  availability_zone       = "${var.az}"
-  map_public_ip_on_launch = true
-}
-
 #Le security group pour l'Elastic Load Balancer
 resource "aws_security_group" "elb" {
   name        = "terraform-vpc-elb"
@@ -53,7 +45,7 @@ resource "aws_security_group" "default" {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
-    cidr_blocks = ["10.0.0.0/16"]
+    cidr_blocks = ["${var.vpc_cidr_block}"]
   }
 
   # Traffic sortant
@@ -69,7 +61,7 @@ resource "aws_security_group" "default" {
 resource "aws_elb" "web" {
   name = "terraform-example-elb"
 
-  subnets         = ["${aws_subnet.default.id}"]
+  subnets         = ["${var.subnet}"]
   security_groups = ["${aws_security_group.elb.id}"]
   instances       = ["${aws_instance.web.id}"]
 
@@ -101,5 +93,5 @@ resource "aws_instance" "web" {
   vpc_security_group_ids = ["${aws_security_group.default.id}"]
 
   # Sous réseau privé lequel l'instance EC2 est lancée
-  subnet_id = "${aws_subnet.default.id}"
+  subnet_id = "${var.subnet}"
 }

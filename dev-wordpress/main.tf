@@ -23,14 +23,14 @@ resource "aws_route" "internet_access" {
 # Sous réseau créé pour y mettre les nodes backend
 resource "aws_subnet" "default" {
   vpc_id                  = "${aws_vpc.default.id}"
-  cidr_block              = "10.0.2.0/24"
+  cidr_block              = "10.0.8.0/24"
   availability_zone       = "${var.az}"
   map_public_ip_on_launch = true
 }
 
 #Le security group pour l'Elastic Load Balancer
 resource "aws_security_group" "elb" {
-  name        = "terraform-vpc-elb"
+  name        = "terraform-vpc-elb-dev"
   description = "Autorisant le traffic HTTP sur toutes les adresses IP"
   vpc_id      = "${aws_vpc.default.id}"
 
@@ -53,7 +53,7 @@ resource "aws_security_group" "elb" {
 
 # Le security group pour l'instance EC2
 resource "aws_security_group" "default" {
-  name        = "terraform-vpc-webnode"
+  name        = "terraform-vpc-webnode-dev"
   description = "Autorisant le traffic HTTP dans le VPC Terraform et les connexions SSH depuis tout hote"
   vpc_id      = "${aws_vpc.default.id}"
 

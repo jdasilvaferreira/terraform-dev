@@ -1,9 +1,14 @@
 provider "aws" {
-  region  = "us-west-2"
+  region  = "${var.aws_region}"
 }
 
 module "wordpress-in-vpc" {
     source = "../../modules/wordpress_1az"
-    vpc_id = "${module.module-vpc.vpc_id}"
-    region = "us-west-2"
+    
+    aws_region = "${var.aws_region}"
+
+    vpc_id = "${var.vpc_id}"
+    vpc_cidr_block = "${var.vpc_cidr_block}"
+
+    subnet = "${var.subnet}"
 }

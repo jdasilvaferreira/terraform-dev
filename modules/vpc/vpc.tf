@@ -12,24 +12,33 @@ resource "aws_route" "internet_access" {
   gateway_id             = "${aws_internet_gateway.default.id}"
 }
 
-resource "aws_default_subnet" "default_az1" {
+resource "aws_subnet" "default_az1" {
   availability_zone = "${var.region}a"
+  vpc_id = "${aws_vpc.default.id}"
+  cidr_block = "${var.subnet1_cidr_block}"
+  map_public_ip_on_launch = true
 
   tags = {
     Name = "Sous réseau par défaut pour AZ ${var.region}a"
   }
 }
 
-resource "aws_default_subnet" "default_az2" {
+resource "aws_subnet" "default_az2" {
   availability_zone = "${var.region}b"
+  vpc_id = "${aws_vpc.default.id}"
+  cidr_block = "${var.subnet2_cidr_block}"
+  map_public_ip_on_launch = true
 
   tags = {
     Name = "Sous réseau par défaut pour AZ ${var.region}b"
   }
 }
 
-resource "aws_default_subnet" "default_az3" {
+resource "aws_subnet" "default_az3" {
   availability_zone = "${var.region}c"
+  vpc_id = "${aws_vpc.default.id}"
+  cidr_block = "${var.subnet3_cidr_block}"
+  map_public_ip_on_launch = true
 
   tags = {
     Name = "Sous réseau par défaut pour AZ ${var.region}c"
