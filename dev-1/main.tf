@@ -24,12 +24,13 @@ resource "aws_route" "internet_access" {
 resource "aws_subnet" "default" {
   vpc_id                  = "${aws_vpc.default.id}"
   cidr_block              = "10.0.1.0/24"
+  availability_zone       = "${var.az}"
   map_public_ip_on_launch = true
 }
 
 #Le security group pour l'Elastic Load Balancer
 resource "aws_security_group" "elb" {
-  name        = "terraform_vpc_elb"
+  name        = "terraform-vpc-elb"
   description = "Autorisant le traffic HTTP sur toutes les adresses IP"
   vpc_id      = "${aws_vpc.default.id}"
 
@@ -53,7 +54,7 @@ resource "aws_security_group" "elb" {
 # Le security group pour l'instance EC2
 resource "aws_security_group" "default" {
   name        = "terraform-vpc-webnode"
-  description = "Autorisant le traffic HTTP dans le VPC Terraform et les connexions SSH depuis tout hôte"
+  description = "Autorisant le traffic HTTP dans le VPC Terraform et les connexions SSH depuis tout hote"
   vpc_id      = "${aws_vpc.default.id}"
 
   # Acces SSH depuis n'importe où

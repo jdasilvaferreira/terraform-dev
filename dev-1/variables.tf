@@ -1,6 +1,11 @@
 variable "aws_region" {
-  description = "AWS region to launch servers."
+  description = "AWS region"
   default     = "us-west-2"
+}
+
+variable "az" {
+  description = "Availability Zone pour le sous réseau"
+  default = "us-west-2a"
 }
 
 # Ubuntu Precise 18.04 LTS (x86)
