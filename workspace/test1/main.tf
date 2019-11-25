@@ -1,7 +1,7 @@
 module "module-vpc" {
-    source = "github.com/jdasilvaferreira/aws-vpc-module.git"
-    cidr_block = "${var.cidr_block}"
-    region = "eu-west-1"
+    source = "../../modules/vpc"
+    cidr_block = "10.11.0.0/16"
+    region = "us-west-2"
 }
 
 
